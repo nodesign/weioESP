@@ -5,7 +5,7 @@ from ujson import loads, dumps
 import electrolink
 import machine
 
-server="78.194.220.232"
+server="XXX.XXX.XXX.XXX"
 CLIENT_ID = ubinascii.hexlify(machine.unique_id())
 REQUEST_TOPIC = b"weio_command"
 ANSWER_TOPIC = b"weio_reply"
