@@ -1,4 +1,4 @@
-var BROKER_ADDRESS = "ws://XXX.XXX.XXX.XXX:8888";
+var BROKER_ADDRESS = "ws://XXX.XXX.XXX.XXX:4444";
 var REQUEST_TOPIC = "weio_command";
 var ANSWER_TOPIC = "weio_reply";
 var ERROR_TOPIC = "weio_error";

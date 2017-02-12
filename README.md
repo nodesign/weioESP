@@ -7,16 +7,17 @@ This is experimental project that is a proof of concept for Electrolink and WeIO
 On your pc or on rPi install and launch broker
 ```bash
 npm install aedes --save
-node broker.js
+node mqqtBroker/broker.js
 ```
-This will launch mqtt broker on two ports, mqtt protocol and websocket protocol
+This will launch mqtt broker on two ports, mqtt (1883) and websocket (4444).
 Remember your ip address because you will need it
 
 ## Http server
-Launch some http server and point to html directory. I'm using lighttpd on rPi that works just fine
+Launch some http server and point to html directory. I'm using lighttpd on rPi that works just fine.
+
 Fix your mqtt broker server ip address in file html/lib/electrolink.js
 ```javascript
-var BROKER_ADDRESS = "ws://XXX.XXX.XXX.XXX:8888";
+var BROKER_ADDRESS = "ws://XXX.XXX.XXX.XXX:4444";
 ```
 ## Micropython sources
 Fix your mqtt broker server ip address in file micropythonElectrolink/elServer.py
