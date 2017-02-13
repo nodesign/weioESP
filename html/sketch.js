@@ -4,7 +4,7 @@ var light = 0;
 function setup() {
     pwmStart(5,255);
     pinMode(0, IN);
-    digitalRead(0, read);
+    digitalRead(0, readCallback);
     // canvas size in pixels
     createCanvas(windowWidth, windowHeight);
     // always put some frame rate, don't make suffer cpu or websockets
@@ -35,6 +35,6 @@ function touchMoved() {
   return false;
 }
 
-function read(data) {
+function readCallback(data) {
     console.log("read",data);
 }
