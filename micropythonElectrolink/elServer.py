@@ -16,29 +16,31 @@ c = None
 def sub_cb(topic, msg):
     global c
     #print((topic, msg))
-    if (topic == REQUEST_TOPIC):
 
-        data = loads(msg)
-        method = data["method"]
-        params = data["params"]
-        #print(params)
+# There is no need to check topic as there will be only one subscription
+#    if (topic == REQUEST_TOPIC):
+
+    data = loads(msg)
+    method = data["method"]
+    params = data["params"]
+    #print(params)
 #PWM
-        if   (method is "pwmStart"):
-            electrolink.pwmStart(params[0], params[1])
-        elif (method is "pwmSet"):
-            electrolink.pwmSet(params[0], params[1])
-        elif (method is "pwmStop"):
-            electrolink.pwmStop(params[0])
+    if   (method is "pwmStart"):
+        electrolink.pwmStart(params[0], params[1])
+    elif (method is "pwmSet"):
+        electrolink.pwmSet(params[0], params[1])
+    elif (method is "pwmStop"):
+        electrolink.pwmStop(params[0])
 #DIGITAL GPIO
-        elif (method is "pinMode"):
-            electrolink.pinMode(params[0], params[1])
-        elif (method is "digitalWrite"):
-            electrolink.digitalWrite(params[0], params[1])
-        elif (method is "digitalRead"):
-            value = electrolink.digitalRead(params[0])
-            p = {"requested":"digitalRead", "value":[params[0],params[1],value]} #pass back pinId to client
-            out = dumps(p)
-            c.publish(ANSWER_TOPIC, out)
+    elif (method is "pinMode"):
+        electrolink.pinMode(params[0], params[1])
+    elif (method is "digitalWrite"):
+        electrolink.digitalWrite(params[0], params[1])
+    elif (method is "digitalRead"):
+        value = electrolink.digitalRead(params[0])
+        p = {"requested":"digitalRead", "value":[params[0],params[1],value]} #pass back pinId to client
+        out = dumps(p)
+        c.publish(ANSWER_TOPIC, out)
 
 def start():
     global c
