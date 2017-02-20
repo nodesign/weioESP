@@ -3,7 +3,10 @@
     function define_Electrolink(){
         var Electrolink = {};
 
-        var BROKER_ADDRESS = "ws://XXX.XXX.XXX.XXX:4444";
+        /**
+        * Server address to connect to 
+        */
+        var BROKER_ADDRESS = "ws://78.194.220.232:4444";
         var REQUEST_TOPIC = "weio_command";
         var ANSWER_TOPIC = "weio_reply";
         var ERROR_TOPIC = "weio_error";
@@ -18,6 +21,8 @@
 
         client.subscribe(ANSWER_TOPIC);
         client.subscribe(ERROR_TOPIC);
+
+        //console.log(new Date().getTime());
 
         client.on("message", function (topic, payload) {
             var data = JSON.parse(payload);
@@ -64,15 +69,16 @@
         }
 
         Electrolink.digitalRead = function(pinId, callback) {
-            // create new callback call
-            var fName = callback.name;
+            // create UUID for this callback function and store it
+            // in array
+            var cbId = uuid.v4();
             //console.log("callback name:" + fName);
-            weioCallbacks[fName] = callback
-            // pass callback name to match it with answer
-            // callback name will be returned with answer
+            weioCallbacks[cbId] = callback
+            // pass callback uuid to match it with answer
+            // uuid will be returned with answer
             // in that way it's possible to define multiple
             // digitalReads with different callbacks
-            Electrolink.sender("digitalRead", [pinId, fName]); 
+            Electrolink.sender("digitalRead", [pinId, cbId]); 
         }
 
         Electrolink.sender = function(method, params) {
