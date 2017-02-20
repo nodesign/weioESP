@@ -5,8 +5,9 @@ from ujson import loads, dumps
 import electrolink
 import machine
 import network
+import neo
 
-server="XXX.XXX.XXX.XXX"
+server="78.194.220.232"
 CLIENT_ID = ubinascii.hexlify(machine.unique_id())
 REQUEST_TOPIC = b"weio_command"
 ANSWER_TOPIC = b"weio_reply"
@@ -42,6 +43,19 @@ def sub_cb(topic, msg):
         p = {"requested":"digitalRead", "value":[params[0],params[1],value]} #pass back pinId to client
         out = dumps(p)
         c.publish(ANSWER_TOPIC, out)
+
+# LAMP
+    elif (method is "fadeIn"):
+        neo.fadeinLight()
+    elif (method is "fadeOut"):
+        neo.fadeoutLight()
+    elif (method is "lighting"):
+        neo.lighting(params[0])
+    elif (method is "setTubeColor"):
+        neo.tubeColor(params[0], params[1], params[2], params[3])
+    elif (method is "writeColors"):
+        neo.writeColors()
+
 
 def start():
     global c
