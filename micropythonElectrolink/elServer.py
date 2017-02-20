@@ -4,6 +4,7 @@ from umqtt.simple import MQTTClient
 from ujson import loads, dumps
 import electrolink
 import machine
+import network
 
 server="XXX.XXX.XXX.XXX"
 CLIENT_ID = ubinascii.hexlify(machine.unique_id())
@@ -44,6 +45,15 @@ def sub_cb(topic, msg):
 
 def start():
     global c
+
+    # wait to connect to the network
+    print("waiting to be connected")
+    sta_if = network.WLAN(network.STA_IF); sta_if.active(True)
+    while not(sta_if.isconnected()):
+        time.sleep(0.3)
+    print("connected to the network")
+    print(sta_if.ifconfig())
+
     c = MQTTClient(CLIENT_ID, server)
     c.set_callback(sub_cb)
     c.connect()
