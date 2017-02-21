@@ -3,7 +3,5 @@
 #esp.osdebug(None)
 import gc
 import webrepl
-import elServer
 webrepl.start()
 gc.collect()
-elServer.start()
