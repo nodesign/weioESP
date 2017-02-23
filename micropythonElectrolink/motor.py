@@ -3,14 +3,12 @@ from time import sleep, sleep_ms
 
 # switch protections
 def up():
-    if (pin_int.value()):
-        pinA.value(1)
-        pinB.value(0)
+    pinA.value(1)
+    pinB.value(0)
 
 def down():
-    if (pin_int.value()):
-        pinA.value(0)
-        pinB.value(1)
+    pinA.value(0)
+    pinB.value(1)
 
 def stop(pin=None):
     pinA.value(0)
@@ -32,6 +30,7 @@ def fadeoutLight(delay_ms):
 def lighting(value):
     pwm0.duty(value)
 
+
 # motor control
 pinA = Pin(14, Pin.OUT)
 pinB = Pin(12, Pin.OUT)
@@ -49,3 +48,4 @@ pwm0.freq(120)
 
 
 stop()
+
